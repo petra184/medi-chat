@@ -4,7 +4,7 @@ import { SubmitButton } from "@/components/submit-button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
-import { SmtpMessage } from "../smtp-message";
+import { MainHeader } from "@/components/main_header";
 
 export default async function Signup(props: {
   searchParams: Promise<Message>;
@@ -20,32 +20,73 @@ export default async function Signup(props: {
 
   return (
     <>
-      <form className="flex flex-col min-w-64 max-w-64 mx-auto">
-        <h1 className="text-2xl font-medium">Sign up</h1>
-        <p className="text-sm text text-foreground">
-          Already have an account?{" "}
-          <Link className="text-primary font-medium underline" href="/sign-in">
-            Sign in
-          </Link>
-        </p>
-        <div className="flex flex-col gap-2 [&>input]:mb-3 mt-8">
+    <MainHeader />
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-blue-100 to-white">
+      <form className="w-full max-w-md space-y-4">
+        <h2 className="text-2xl font-bold text-center mb-6">Sign Up</h2>
+        <div className="space-y-2">
+          <Label htmlFor="email">First Name</Label>
+          <Input
+            id="f_name"
+            name="f_name"
+            type="name"
+            placeholder="First Name"
+            required
+          />
+        </div>
+        <div className="space-y-2">
+          <Label htmlFor="email">Last Name</Label>
+          <Input
+            id="l_name"
+            name="l_name"
+            type="name"
+            placeholder="Last Name"
+            required
+          />
+        </div>
+        <div className="space-y-2">
           <Label htmlFor="email">Email</Label>
-          <Input name="email" placeholder="you@example.com" required />
+          <Input
+            id="email"
+            name="email"
+            type="email"
+            placeholder="Enter your email"
+            required
+          />
+        </div>
+        <div className="space-y-2">
           <Label htmlFor="password">Password</Label>
           <Input
-            type="password"
+            id="password"
             name="password"
-            placeholder="Your password"
+            type="password"
+            placeholder="*********"
             minLength={6}
             required
           />
-          <SubmitButton formAction={signUpAction} pendingText="Signing up...">
-            Sign up
-          </SubmitButton>
-          <FormMessage message={searchParams} />
         </div>
+        <div className="space-y-2">
+          <Label htmlFor="confirmPassword">Confirm Password</Label>
+          <Input
+            id="confirmPassword"
+            name="confirmPassword"
+            type="password"
+            placeholder="*********"
+            required
+          />
+        </div>
+        <SubmitButton formAction={signUpAction} pendingText="Signing up..." className="w-full">
+            Sign up
+        </SubmitButton>
+        <p className="text-center">
+          Already have an account?{' '}
+          <Link href="/sign-in" className="text-blue-600 hover:underline">
+            Log In
+          </Link>
+        </p>
+        <FormMessage message={searchParams} />
       </form>
-      <SmtpMessage />
+    </div>
     </>
   );
 }
